@@ -46,7 +46,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully")
-    return redirect ("user_login")
+    return redirect ("home")
 def profile(request):
     user = request.user
     userPosts = Post.objects.filter(author=user).order_by('-date_time')
