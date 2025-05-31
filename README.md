@@ -5,7 +5,6 @@
         Super User username:developer
         Super User email: dev#gmail.com
         Super User password:developer
-
         Username of Sample ID: Asif1445
         Password of Sample ID: developer
 
