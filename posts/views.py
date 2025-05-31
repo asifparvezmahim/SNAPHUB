@@ -6,6 +6,7 @@ from posts.models import Post
 from .forms import PostForm
 
 # Create your views here.
+@login_required
 def add_post(request):
     if request.method == "POST":
         post_form = PostForm(request.POST,request.FILES)

@@ -5,7 +5,7 @@
         Super User username:developer
         Super User email: dev#gmail.com
         Super User password:developer
-        Username of Sample ID: (pass: developer)
+        Username of Sample ID: Asif1445(pass: developer)
         Username of Sample ID: Shawon1445 (pass: developer)
 
 3. Setup and Installation Instructions:

@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from posts.models import Post
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register_view(request):
@@ -47,11 +48,13 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully")
     return redirect ("home")
+
+@login_required
 def profile(request):
     user = request.user
     userPosts = Post.objects.filter(author=user).order_by('-date_time')
     return render (request,"profile.html",{"userPosts":userPosts})
-
+@login_required
 def password_change(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
