@@ -49,8 +49,9 @@
    <div class="user_posts">
      {% for post in userPosts %}
         <div class="card text-center mb-4">
-            <div class="card-header  fs-3">
-                From <span class="text-success fw-bold ">{{ post.author.username }}</span> 
+            <div class="card-header d-flex justify-content-between">
+                <a class="btn btn-warning" href="{%url "edit_post" post.id%}">Edit Post</a>
+                <a class="btn btn-danger" href="{%url "delete_post" post.id%}">Delete Post</a>
             </div>
             <div class="card-body">
                 <p class="card-text text-start">{{ post.content }}</p>
@@ -67,5 +68,8 @@
         <p>No posts found.</p>
     {% endfor %}
    </div>
+</div>
+<div class="footer-section w-100">
+    {% include "footer.html" %}
 </div>
 {%endblock%}
