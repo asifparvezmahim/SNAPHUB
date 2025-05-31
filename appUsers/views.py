@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
-from .forms import Registerform
+from .forms import Registerform,CustomPasswordChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm
+from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
+from posts.models import Post
 
 # Create your views here.
 def register_view(request):
@@ -47,7 +48,23 @@ def user_logout(request):
     messages.success(request, "Logged Out Successfully")
     return redirect ("user_login")
 def profile(request):
-    return render (request,"profile.html")
+    user = request.user
+    userPosts = Post.objects.filter(author=user).order_by('-date_time')
+    return render (request,"profile.html",{"userPosts":userPosts})
+
+def password_change(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Password changed successfully.")
+            return redirect('profile')
+    else:
+        form = CustomPasswordChangeForm(user=request.user)
+    return render(request, 'password_change_form.html', {'form': form})
+
+
 
 
 

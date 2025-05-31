@@ -8,4 +8,64 @@
     </div>
   {% endfor %}
 {% endif %}
+<div class="User_Info">
+  <div class="welcome text-center my-5">
+    <h1>WELCOME <span class="fst-italic text-success fw-bold">{{user.first_name}} {{user.last_name}}</span></h1>
+    <h3>To Your Profile</h3>
+  </div>
+</div>
+<div class="pass_change_button w-75 mx-auto my-4">
+  <a href="{%url "password_change"%}" class="btn btn-outline-success">Change Your Password</a>
+</div>
+<div class="user_record_container w-75 mx-auto pb-4">
+   <div class="user_informations">
+    <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">User ID:</th>
+      <th scope="col">{{user.id}}</th>
+    </tr>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">{{user.username}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">First Name</th>
+      <td>{{user.first_name}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Last Name</th>
+      <td>{{user.last_name}}</td>
+    </tr>
+    <tr>
+      <th scope="row">E-Mail</th>
+      <td>{{user.email}}</td>
+    </tr>
+  </tbody>
+</table>
+   </div>
+   <div class="user_posts">
+     {% for post in userPosts %}
+        <div class="card text-center mb-4">
+            <div class="card-header  fs-3">
+                From <span class="text-success fw-bold ">{{ post.author.username }}</span> 
+            </div>
+            <div class="card-body">
+                <p class="card-text text-start">{{ post.content }}</p>
+
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid rounded mb-3" style="height: 300px; width: 100%; object-fit: contain;" />
+                {% endif %}
+            </div>
+            <div class="card-footer text-body-secondary">
+                {{ post.date_time|date:"F j, Y, g:i a" }}
+            </div>
+        </div>
+    {% empty %}
+        <p>No posts found.</p>
+    {% endfor %}
+   </div>
+</div>
 {%endblock%}
